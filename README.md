@@ -1,15 +1,12 @@
 # isfopo/Tap
 
-Homebrew tap for standby.
+Homebrew tap for isfopo.
 
 ## Installation
 
 ```bash
 # Add this tap
-brew tap isfopo/standby-homebrew-tap
-
-# Install standby
-brew install standby
+brew tap isfopo/Tap
 ```
 
 ## Updating
