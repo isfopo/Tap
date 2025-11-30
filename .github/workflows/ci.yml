@@ -27,10 +27,14 @@ jobs:
 
     - name: Validate formulas
       run: |
+        # Add this tap
+        brew tap-local .
+
         for formula in Formula/*.rb; do
           echo "Validating $formula..."
           brew style "$formula"
-          brew audit "$formula" || echo "Audit warnings for $formula (may be expected for new formulas)"
+          formula_name=$(basename "$formula" .rb)
+          brew audit "$formula_name" || echo "Audit warnings for $formula (may be expected for new formulas)"
         done
 
   test-formulas:
