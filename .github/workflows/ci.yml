@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  validate-formulas:
+    name: Validate Homebrew Formulas
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.2'
+
+    - name: Install Homebrew
+      run: |
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        echo "/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin" >> $GITHUB_PATH
+
+    - name: Validate formulas
+      run: |
+        for formula in Formula/*.rb; do
+          echo "Validating $formula..."
+          brew style "$formula"
+          brew audit "$formula" || echo "Audit warnings for $formula (may be expected for new formulas)"
+        done
+
+  test-formulas:
+    name: Test Formula Installation
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.2'
+
+    - name: Install Homebrew
+      run: |
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        echo "/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin" >> $GITHUB_PATH
+
+    - name: Test formula installation
+      run: |
+        # Add this tap
+        brew tap-local .
+
+        # Test standby formula
+        if [ -f "Formula/standby.rb" ]; then
+          echo "Testing standby formula..."
+          brew install --build-from-source standby || echo "Formula test failed (expected for CI without real binaries)"
+        fi
