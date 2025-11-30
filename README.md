@@ -9,17 +9,17 @@ Homebrew tap for isfopo's projects. This tap contains formulas for multiple appl
 brew tap isfopo/Tap
 
 # Install available packages
-brew install standby  # Audio monitoring application
+brew install soundcheck  # Audio monitoring application
 ```
 
 ## Available Packages
 
-### standby
+### soundcheck
 
 Terminal-based audio monitoring application that displays real-time audio levels and detects when sound exceeds a specified threshold.
 
 ```bash
-brew install standby
+brew install soundcheck
 ```
 
 ## Workflow Architecture
@@ -32,7 +32,7 @@ This tap uses a distributed workflow system:
 
 ### Supported Projects
 
-- **standby** - Audio monitoring application
+- **soundcheck** - Audio monitoring application
 
 ### Adding New Projects
 

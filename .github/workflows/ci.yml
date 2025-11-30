@@ -61,8 +61,8 @@ jobs:
         # Add this tap
         brew tap-local .
 
-        # Test standby formula
-        if [ -f "Formula/standby.rb" ]; then
-          echo "Testing standby formula..."
-          brew install --build-from-source standby || echo "Formula test failed (expected for CI without real binaries)"
+        # Test soundcheck formula
+        if [ -f "Formula/soundcheck.rb" ]; then
+          echo "Testing soundcheck formula..."
+          brew install --build-from-source soundcheck || echo "Formula test failed (expected for CI without real binaries)"
         fi

@@ -30,42 +30,42 @@ jobs:
         TAG="${{ steps.get_version.outputs.tag }}"
 
         # Calculate SHA256 for macOS x86_64 binary
-        MACOS_X86_SHA=$(curl -sL "https://github.com/${REPO_NAME}/releases/download/${TAG}/standby-x86_64-apple-darwin.tar.gz" | sha256sum | cut -d' ' -f1)
-        MACOS_ARM_SHA=$(curl -sL "https://github.com/${REPO_NAME}/releases/download/${TAG}/standby-aarch64-apple-darwin.tar.gz" | sha256sum | cut -d' ' -f1)
+        MACOS_X86_SHA=$(curl -sL "https://github.com/${REPO_NAME}/releases/download/${TAG}/soundcheck-x86_64-apple-darwin.tar.gz" | sha256sum | cut -d' ' -f1)
+        MACOS_ARM_SHA=$(curl -sL "https://github.com/${REPO_NAME}/releases/download/${TAG}/soundcheck-aarch64-apple-darwin.tar.gz" | sha256sum | cut -d' ' -f1)
 
         FORMULA=$(cat << EOF
-        class Standby < Formula
+        class Soundcheck < Formula
           desc "Terminal-based audio monitoring application"
           homepage "https://github.com/${REPO_NAME}"
-          url "https://github.com/${REPO_NAME}/releases/download/${TAG}/standby-x86_64-apple-darwin.tar.gz"
+          url "https://github.com/${REPO_NAME}/releases/download/${TAG}/soundcheck-x86_64-apple-darwin.tar.gz"
           sha256 "${MACOS_X86_SHA}"
           version "${TAG#v}"
 
           on_macos do
             if Hardware::CPU.arm?
-              url "https://github.com/${REPO_NAME}/releases/download/${TAG}/standby-aarch64-apple-darwin.tar.gz"
+              url "https://github.com/${REPO_NAME}/releases/download/${TAG}/soundcheck-aarch64-apple-darwin.tar.gz"
               sha256 "${MACOS_ARM_SHA}"
             end
           end
 
           def install
-            bin.install "standby"
+            bin.install "soundcheck"
           end
 
           test do
-            system "#{bin}/standby", "--help"
+            system "#{bin}/soundcheck", "--help"
           end
         end
         EOF
         )
 
-        echo "$FORMULA" > standby.rb
+        echo "$FORMULA" > soundcheck.rb
 
     - name: Upload formula artifact
       uses: actions/upload-artifact@v4
       with:
         name: homebrew-formula
-        path: standby.rb
+        path: soundcheck.rb
 
   update-tap:
     name: Update Homebrew Tap
@@ -89,21 +89,21 @@ jobs:
     - name: Get version
       id: get_version
       run: |
-        VERSION=$(cat standby.rb | grep "version" | head -1 | sed 's/.*version "\([^"]*\)".*/\1/')
+        VERSION=$(cat soundcheck.rb | grep "version" | head -1 | sed 's/.*version "\([^"]*\)".*/\1/')
         echo "version=v$VERSION" >> $GITHUB_OUTPUT
 
     - name: Commit and push formula
       run: |
         cd tap-repo
-        cp ../standby.rb Formula/standby.rb
+        cp ../soundcheck.rb Formula/soundcheck.rb
 
         git config user.name "GitHub Actions"
         git config user.email "actions@github.com"
-        git add Formula/standby.rb
+        git add Formula/soundcheck.rb
 
         if git diff --staged --quiet; then
           echo "No changes to formula"
         else
-          git commit -m "Update standby to ${{ steps.get_version.outputs.version }}"
+          git commit -m "Update soundcheck to ${{ steps.get_version.outputs.version }}"
           git push
         fi

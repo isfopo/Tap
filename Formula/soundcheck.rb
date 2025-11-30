@@ -1,0 +1,15 @@
+class Soundcheck < Formula
+  desc "Terminal-based audio monitoring application"
+  homepage "https://github.com/isfopo/soundcheck"
+  url "https://github.com/isfopo/soundcheck/releases/download/v0.1.0/soundcheck-x86_64-apple-darwin.tar.gz"
+  version "0.1.0"
+  sha256 "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
+
+  def install
+    bin.install "soundcheck"
+  end
+
+  test do
+    system "#{bin}/soundcheck", "--help"
+  end
+end
