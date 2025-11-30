@@ -15,6 +15,7 @@ brew install standby  # Audio monitoring application
 ## Available Packages
 
 ### standby
+
 Terminal-based audio monitoring application that displays real-time audio levels and detects when sound exceeds a specified threshold.
 
 ```bash
@@ -49,7 +50,6 @@ Formulas are automatically updated when new releases are published in their resp
 - Formula generation with correct SHA256 hashes
 - Version bumping and URL updates
 - Automated commits to this repository
-- Optional pull requests to homebrew-core
 
 ## Contributing
 
