@@ -117,5 +117,5 @@ jobs:
           echo "No changes to formula"
         else
           git commit -m "Update soundcheck to ${{ steps.get_version.outputs.version }}"
-          git push
+          git push origin main
         fi
