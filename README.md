@@ -1,4 +1,4 @@
-# isfopo/Tap
+# isfopo/homebrew-tap
 
 Homebrew tap for isfopo's projects. This tap contains formulas for multiple applications and can be used across different repositories.
 
@@ -6,7 +6,7 @@ Homebrew tap for isfopo's projects. This tap contains formulas for multiple appl
 
 ```bash
 # Add this tap
-brew tap isfopo/Tap
+brew tap isfopo/hoembrew-tap
 
 # Install available packages
 brew install soundcheck  # Audio monitoring application
