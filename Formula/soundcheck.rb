@@ -1,14 +1,14 @@
 class Soundcheck < Formula
   desc "Terminal-based audio monitoring application"
   homepage "https://github.com/isfopo/soundcheck"
-  url "https://github.com/isfopo/soundcheck/releases/download/0.0.15/soundcheck-x86_64-apple-darwin.tar.gz"
-  sha256 "d35e34d71a35949744b795803baccde0b26a75c6342886298c1b56c2f6024e0c"
-  version "0.0.15"
+  url "https://github.com/isfopo/soundcheck/releases/download/0.0.16/soundcheck-x86_64-apple-darwin.tar.gz"
+  sha256 "b8559e1f59423fe33ac46d5ec627547bb45dd688197ae6c485531fb60cc0d4d9"
+  version "0.0.16"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/isfopo/soundcheck/releases/download/0.0.15/soundcheck-aarch64-apple-darwin.tar.gz"
-      sha256 "71b2aa87c20fde8e267cc016b0a4eacb043a243dec507a5ef78fc2eb7583a78d"
+      url "https://github.com/isfopo/soundcheck/releases/download/0.0.16/soundcheck-aarch64-apple-darwin.tar.gz"
+      sha256 "c4adb9e741c11610d48a24ea6cb9b62c132b4bf227c755c897cdb34883783a30"
     end
   end
 
